@@ -1,34 +1,26 @@
+name: PR Bundle Validation
+
 on:
   pull_request:
     branches:
       - main
-  push:
-    branches:
-      - main
-
-permissions:
-  id-token: write
-  contents: read
 
 jobs:
-  first-workflow:
-    name: "First workflow"
-    runs-on: "ubuntu-latest"
-    environment: "setup"
-#    env:
-#      DATABRICKS_AUTH_TYPE: github-oidc
-#      DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
-#      DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
+  validate:
+    runs-on: ubuntu-latest
+    environment: DATABRICKS_TOKEN
 
+    env:
+        DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+        DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+    
     steps:
-      - name: checkout code
+      - name: Checkout code
         uses: actions/checkout@v4
-      - name: Installs databricks cli
+
+      - name: Install Databricks CLI
         uses: databricks/setup-cli@main
-      - name: Validate bundle
+
+      - name: PR Bundle Validation
         run: |
-          databricks bundle validate -t dev
-        env:
-#          DATABRICKS_AUTH_TYPE: github-oidc
-          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
-          DATABRICKS_SECRET: ${{ secrets.DATABRICKS_SECRET }}
+          databricks bundle validate --target dev
