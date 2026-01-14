@@ -2,6 +2,9 @@ on:
   pull_request:
     branches:
       - main
+  push:
+    branches:
+      - main
 jobs:
   name: "First workflow"
   runs-on: "macos-14"
