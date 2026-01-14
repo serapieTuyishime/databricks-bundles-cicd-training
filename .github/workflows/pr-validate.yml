@@ -29,6 +29,6 @@ jobs:
         run: |
           databricks bundle validate -t dev
         env:
-          DATABRICKS_AUTH_TYPE: github-oidc
+#          DATABRICKS_AUTH_TYPE: github-oidc
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
-          DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
+          DATABRICKS_SECRET: ${{ secrets.DATABRICKS_SECRET }}
