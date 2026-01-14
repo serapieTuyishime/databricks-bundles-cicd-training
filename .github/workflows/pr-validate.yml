@@ -21,7 +21,7 @@ jobs:
         uses: databricks/setup-cli@main
       - name: Validate bundle
         run: |
-          databricks bundle validate -t dev --profile serapie
+          databricks bundle validate -t dev
         env:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
           DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
