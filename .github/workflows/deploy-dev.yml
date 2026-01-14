@@ -1,0 +1,28 @@
+name: deploy to dev on merge to main
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+jobs:
+  deploy:
+    if: github.event.pull_request.merged == true
+    runs-on: "ubuntu-latest"
+    environment: "setup"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@V4
+
+      - name: Install Datablicks CLI
+        uses: databricks/setup-cli@main
+
+      - name: Authenticate with databricks
+        run: |
+          echo "DATABRICKS_HOST=${{ vars.DATABRICKS_HOST }}" >> $GITHUB_ENV
+          echo "DATABRICKS_CLIENT_ID=${{ vars.DATABRICKS_CLIENT_ID }}" >> $GITHUB_ENV
+          echo "DATABRICKS_CLIENT_SECRET=${{ secrets.DATABRICKS_CLIENT_SECRET }}" >> $GITHUB_ENV 
+
+      - name: PR Bundle deployment
+        run: |
+          databricks bundle deploy --target dev
