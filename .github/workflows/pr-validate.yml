@@ -8,7 +8,7 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    environment: DATABRICKS_TOKEN
+    environment: setup
 
     env:
         DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
