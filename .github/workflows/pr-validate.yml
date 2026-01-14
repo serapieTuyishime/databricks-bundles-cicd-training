@@ -6,21 +6,23 @@ on:
     branches:
       - main
 jobs:
-  name: "First workflow"
-  runs-on: "macos-14"
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+  first-workflow:
+    name: "First workflow"
+    runs-on: "macos-14"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: "Install Databricks CLI"
-      run: |
-        brew tap databricks/tap brew install databricks
-    - name: "Auntenticate in databricks"
-      uses: databricks/setup-cli@v0
-      with:
-        databricks-host: ${{ secrets.DATABRICKS_HOST }}
-        databricks-token: ${{ secrets.DATABRICKS_TOKEN }}
+      - name: "Install Databricks CLI"
+        run: |
+          brew tap databricks/tap 
+          brew install databricks
+      - name: "Auntenticate with databricks"
+        uses: databricks/setup-cli@v0
+        with:
+          databricks-host: ${{ secrets.DATABRICKS_HOST }}
+          databricks-token: ${{ secrets.DATABRICKS_TOKEN }}
 
-    - name: "Run bundle validation for the dev target"
-      run: |
-        databricks bundle deploy -t dev --profile serapie
+      - name: "Run bundle validation for the dev target"
+        run: |
+          databricks bundle deploy -t dev --profile serapie
