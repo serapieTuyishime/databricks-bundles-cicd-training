@@ -11,11 +11,11 @@ jobs:
       run: |
         brew tap databricks/tap brew install databricks
     - name: "Auntenticate in databricks"
-      run: |
-        echo: "Authentication successfull"
-      env:
-        DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
-        DATABRICKS_AUTH_TYPE: github-oidc
+      uses: databricks/setup-cli@v0
+      with:
+        databricks-host: ${{ secrets.DATABRICKS_HOST }}
+        databricks-token: ${{ secrets.DATABRICKS_TOKEN }}
+
     - name: "Run bundle validation for the dev target"
       run: |
         databricks bundle deploy -t dev --profile serapie
