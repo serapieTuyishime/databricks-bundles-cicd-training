@@ -18,7 +18,7 @@ jobs:
           brew tap databricks/tap 
           brew install databricks
       - name: "Auntenticate with databricks"
-        uses: databricks/setup-cli@v0
+        uses: databricks/setup-cli@main
         with:
           databricks-host: ${{ secrets.DATABRICKS_HOST }}
           databricks-token: ${{ secrets.DATABRICKS_TOKEN }}
