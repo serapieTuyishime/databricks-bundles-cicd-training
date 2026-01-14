@@ -1,0 +1,21 @@
+on:
+  pull_request:
+jobs:
+  name: "First workflow"
+  runs-on: "macos-latest"
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: "Install Databricks CLI"
+      run: |
+        brew tap databricks/tap brew install databricks
+    - name: "Auntenticate in databricks"
+      run: |
+        echo: "Authentication successfull"
+      env:
+        DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+        DATABRICKS_AUTH_TYPE: github-oidc
+    - name: "Run bundle validation for the dev target"
+      run: |
+        databricks bundle deploy -t dev --profile serapie
