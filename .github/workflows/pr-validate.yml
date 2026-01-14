@@ -8,23 +8,20 @@ on:
 jobs:
   first-workflow:
     name: "First workflow"
-    runs-on: "macos-14"
-    environment: Prod
+    runs-on: "ubuntu-latest"
     env:
       DATABRICKS_AUTH_TYPE: github-oidc
       DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
       DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: databricks/setup-cli@main
-      - name: Checkout code
-
-      - name: "Install Databricks CLI"
+      - name: checkout code
+        uses: actions/checkout@v4
+      - name: Installs databricks cli
+        uses: databricks/setup-cli@main
+      - name: Validate bundle
         run: |
-          brew tap databricks/tap 
-          brew install databricks
-
-      - name: "Run bundle validation for the dev target"
-        run: |
-          databricks bundle deploy -t dev --profile serapie
+          databricks bundle validate -t dev --profile serapie
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
