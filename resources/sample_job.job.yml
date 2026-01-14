@@ -1,5 +1,6 @@
 # A sample job for databricks_bundles_cicd_training.
 
+# A change
 resources:
   jobs:
     sample_job:
