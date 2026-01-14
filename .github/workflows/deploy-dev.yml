@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@V4
+        uses: actions/checkout@v4
 
       - name: Install Datablicks CLI
         uses: databricks/setup-cli@main
