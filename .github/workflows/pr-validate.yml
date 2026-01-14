@@ -4,7 +4,7 @@ on:
       - main
 jobs:
   name: "First workflow"
-  runs-on: "macos-latest"
+  runs-on: "macos-14"
   steps:
     - name: Checkout code
       uses: actions/checkout@v4
