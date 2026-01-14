@@ -14,6 +14,7 @@ jobs:
   first-workflow:
     name: "First workflow"
     runs-on: "ubuntu-latest"
+    environment: "setup"
 #    env:
 #      DATABRICKS_AUTH_TYPE: github-oidc
 #      DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
