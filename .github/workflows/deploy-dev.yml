@@ -7,8 +7,12 @@ on:
 jobs:
   deploy:
     if: github.event.pull_request.merged == true
-    runs-on: "ubuntu-latest"
-    environment: "setup"
+    runs-on: ubuntu-latest
+    environment: setup
+
+    env:
+      DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+      DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
 
     steps:
       - name: Checkout code
@@ -16,12 +20,6 @@ jobs:
 
       - name: Install Datablicks CLI
         uses: databricks/setup-cli@main
-
-      - name: Authenticate with databricks
-        run: |
-          echo "DATABRICKS_HOST=${{ vars.DATABRICKS_HOST }}" >> $GITHUB_ENV
-          echo "DATABRICKS_CLIENT_ID=${{ vars.DATABRICKS_CLIENT_ID }}" >> $GITHUB_ENV
-          echo "DATABRICKS_CLIENT_SECRET=${{ secrets.DATABRICKS_CLIENT_SECRET }}" >> $GITHUB_ENV 
 
       - name: PR Bundle deployment
         run: |
