@@ -6,7 +6,5 @@ resources:
         - task_key: main
           notebook_task:
             notebook_path: ../src/example_notebook.ipynb
-          new_cluster:
-            spark_version: 14.3.x-scala2.12
-            node_type_id: Standard_DS3_v2
-            num_workers: 1
+          compute:
+            serverless: true
