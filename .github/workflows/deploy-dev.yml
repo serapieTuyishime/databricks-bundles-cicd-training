@@ -26,3 +26,7 @@ jobs:
       - name: Deploy bundle to Dev
         run: |
           databricks bundle deploy --target dev
+      - name: Log deployed resources
+        run: |
+          echo "=== Deployed Resources ==="
+          databricks bundle summary -t dev
