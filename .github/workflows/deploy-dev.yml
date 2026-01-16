@@ -51,7 +51,7 @@ jobs:
       
       - name: Verify job output after completion
         run: |
-          WORKSPACES=databricks catalogs list -t dev
+          WORKSPACES=$(databricks catalogs list -t dev)
           echo "$WORKSPACES available"
 #          TABLE_EXISTS=$(databricks tables get workspace.default.example_output 2>/dev/null && echo "true" || echo "false")
 #
