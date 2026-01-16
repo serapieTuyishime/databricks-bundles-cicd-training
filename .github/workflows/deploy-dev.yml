@@ -51,13 +51,11 @@ jobs:
       
       - name: Verify job output after completion
         run: |
-          WORKSPACES=$(databricks tables get workspace.default.example_output -t dev)
-          echo "$WORKSPACES available"
-#          TABLE_EXISTS=$(databricks tables get workspace.default.example_output 2>/dev/null && echo "true" || echo "false")
-#
-#          if [ "$TABLE_EXISTS" != "true" ]; then
-#            echo "Verification failed: table does not exist"
-#            exit 1
-#          fi
-#
-#          echo "Verification succeeded: table default.example_output exists"
+          TABLE_EXISTS=$(databricks tables get workspace.default.example_output -t dev && echo "true" || echo "false")
+
+          if [ "$TABLE_EXISTS" != "true" ]; then
+            echo "Verification failed: table does not exist"
+            exit 1
+          fi
+
+          echo "Verification succeeded: table default.example_output exists"
