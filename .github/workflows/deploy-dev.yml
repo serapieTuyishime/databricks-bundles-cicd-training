@@ -45,22 +45,22 @@ jobs:
           echo "job_id=$JOB_ID" >> $GITHUB_OUTPUT
           echo "run_id=$RUN_ID" >> $GITHUB_OUTPUT
           
-          - name: Wait for job completion
-            run: |
-              databricks jobs runs wait ${{ steps.run_job.outputs.run_id }}
+      - name: Wait for job completion
+        run: |
+          databricks jobs runs wait ${{ steps.run_job.outputs.run_id }}
+      
+      - name: Verify job output
+        run: |
+          ROW_COUNT=$(databricks sql query \
+            --warehouse-id ${{ secrets.DATABRICKS_SQL_WAREHOUSE_ID }} \
+            --query "SELECT COUNT(*) AS cnt FROM default.example_output" \
+            --output json | jq -r '.result.data_array[0][0]')
           
-          - name: Verify job output
-            run: |
-              ROW_COUNT=$(databricks sql query \
-                --warehouse-id ${{ secrets.DATABRICKS_SQL_WAREHOUSE_ID }} \
-                --query "SELECT COUNT(*) AS cnt FROM default.example_output" \
-                --output json | jq -r '.result.data_array[0][0]')
-              
-              echo "Row count: $ROW_COUNT"
-              
-              if [ "$ROW_COUNT" -le 0 ]; then
-                echo "Verification failed: no data produced"
-                exit 1
-              fi
-              
-              echo "Verification succeeded"
+          echo "Row count: $ROW_COUNT"
+          
+          if [ "$ROW_COUNT" -le 0 ]; then
+            echo "Verification failed: no data produced"
+            exit 1
+          fi
+          
+          echo "Verification succeeded"
