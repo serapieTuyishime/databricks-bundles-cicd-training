@@ -39,7 +39,7 @@ jobs:
           JOB_ID=$(databricks bundle summary -t dev --output json | jq -r '.resources.jobs.example_job.id')
           echo "Job ID: $JOB_ID"
           
-          RUN_ID=$(databricks jobs run-now --job-id "$JOB_ID" --output json | jq -r '.run_id')
+          RUN_ID=$(databricks jobs run-now "$JOB_ID" --output json | jq -r '.run_id')
           echo "Run ID: $RUN_ID"
           
           echo "job_id=$JOB_ID" >> $GITHUB_OUTPUT
