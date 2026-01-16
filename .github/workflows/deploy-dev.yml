@@ -45,12 +45,10 @@ jobs:
           echo "job_id=$JOB_ID" >> $GITHUB_OUTPUT
           echo "run_id=$RUN_ID" >> $GITHUB_OUTPUT
           
-          # 4️⃣ Wait for completion
           - name: Wait for job completion
             run: |
               databricks jobs runs wait ${{ steps.run_job.outputs.run_id }}
           
-          # 5️⃣ Verify output (Delta table row count)
           - name: Verify job output
             run: |
               ROW_COUNT=$(databricks sql query \
