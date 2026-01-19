@@ -6,7 +6,7 @@ on:
 jobs:
   deploy-staging:
     runs-on: ubuntu-latest
-    environment: staging
+    environment: setup
 
     env:
       DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
