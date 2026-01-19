@@ -28,6 +28,21 @@ targets:
     variables:
       catalog: workspace
       schema: ${workspace.current_user.short_name}
+      input_path: /mnt/dev/sample_input
+      run_mode: sample
+      processing_date: "2026-01-01"
+  staging:
+    mode: development
+    workspace:
+      host: https://dbc-c0331d6b-e640.cloud.databricks.com
+      # We don't need to have a single copy explicitly
+    variables:
+      catalog: workspace
+      schema: default
+      input_path: /mnt/staging/full_input
+      run_mode: full
+      processing_date: "2026-01-01"
+
   prod:
     mode: production
     workspace:

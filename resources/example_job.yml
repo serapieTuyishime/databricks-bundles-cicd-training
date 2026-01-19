@@ -1,0 +1,22 @@
+resources:
+  jobs:
+    example_job:
+      name: example-${bundle.target}-job
+
+      tasks:
+        - task_key: main
+          notebook_task:
+            notebook_path: ../src/staging_notebook.ipynb
+            base_parameters:
+              input_path: ${var.input_path}
+              run_mode: ${var.run_mode}
+              processing_date: ${var.processing_date}
+
+          job_cluster_key: serverless_cluster
+
+      job_clusters:
+        - job_cluster_key: serverless_cluster
+          new_cluster:
+            spark_version: 14.3.x-scala2.12
+            num_workers: 1
+            node_type_id: Standard_DS3_v2
