@@ -12,10 +12,10 @@ resources:
               run_mode: ${var.run_mode}
               processing_date: ${var.processing_date}
 
-          job_cluster_key: serverless_cluster
+#          job_cluster_key: serverless_cluster
 
       job_clusters:
-        - job_cluster_key: serverless_cluster
+#        - job_cluster_key: serverless_cluster
           new_cluster:
             spark_version: 14.3.x-scala2.12
             num_workers: 1
