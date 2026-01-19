@@ -14,6 +14,12 @@ variables:
     description: The catalog to use
   schema:
     description: The schema to use
+  input_path:
+    description: Input data path
+  run_mode:
+    description: sample or full
+  processing_date:
+    description: Processing date
 
 targets:
   dev:
