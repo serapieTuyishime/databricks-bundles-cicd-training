@@ -45,15 +45,12 @@ jobs:
       # - name: Wait for job completion
       #   run: |
       #     databricks bundle run ${{ resources.jobs.example_job.id }} --target dev. # This is not working as expected
-      
-      - name: Verify job output after completion
+
+      - name: Run verification job
         run: |
-#          WORKSPACES=$(databricks tables get -t dev)
-#          echo "$WORKSPACES available"
-          TABLE_EXISTS=$(databricks tables get workspace.default.example_output 2>/dev/null && echo "true" || echo "false")
+          VERIFY_JOB_ID=$(databricks bundle summary -t staging --output json \
+            | jq -r '.resources.jobs.verify_example_output_job.id')
           
-          if [ "$TABLE_EXISTS" != "true" ]; then
-            echo "Verification failed: table does not exist"
-            exit 1
-            
-          echo "Verification succeeded: table workspace.default.example_output exists"
+          echo "Verification Job ID: $VERIFY_JOB_ID"
+          
+          databricks jobs run-now "$VERIFY_JOB_ID"

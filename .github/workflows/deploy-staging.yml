@@ -39,13 +39,11 @@ jobs:
           echo "job_id=$JOB_ID" >> $GITHUB_OUTPUT
           echo "run_id=$RUN_ID" >> $GITHUB_OUTPUT
 
-      - name: Verify output table
+      - name: Run verification job
         run: |
-          TABLE_EXISTS=$(databricks tables get workspace.default.example_output 2>/dev/null && echo "true" || echo "false")
+          VERIFY_JOB_ID=$(databricks bundle summary -t staging --output json \
+            | jq -r '.resources.jobs.verify_example_output_job.id')
 
-          if [ "$TABLE_EXISTS" != "true" ]; then
-            echo "Verification failed: output table not found"
-            exit 1
-          fi
+          echo "Verification Job ID: $VERIFY_JOB_ID"
 
-          echo "Verification succeeded: staging output table exists"
+          databricks jobs run-now "$VERIFY_JOB_ID"
