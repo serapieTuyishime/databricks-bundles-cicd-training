@@ -30,7 +30,7 @@ jobs:
       - name: Run Databricks job (staging parameters)
         id: run_job
         run: |
-          JOB_ID=$(databricks bundle summary -t staging --output json | jq -r '.resources.jobs.example_job.id')
+          JOB_ID=$(databricks bundle summary -t staging --output json | jq -r '.resources.jobs.example_job_staging.id')
           echo "Job ID: $JOB_ID"
 
           RUN_ID=$(databricks jobs run-now "$JOB_ID" --output json | jq -r '.run_id')

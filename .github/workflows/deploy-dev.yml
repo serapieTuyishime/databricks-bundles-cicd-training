@@ -55,6 +55,5 @@ jobs:
           if [ "$TABLE_EXISTS" != "true" ]; then
             echo "Verification failed: table does not exist"
             exit 1
-          fi
-
+            
           echo "Verification succeeded: table workspace.default.example_output exists"
